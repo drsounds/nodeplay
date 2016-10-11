@@ -19,16 +19,18 @@ server.get('/api/categories/:categoryId/videos', function (req, res) {
    {
      id: 'DP0wDz-akSw',
      name: 'Aquafulness',
+     image_url: 'https://i.ytimg.com/vi/DP0wDz-akSw/default.jpg?sqp=CJit878F&rs=AOn4CLA_q3_51YT9tbJ_VcYWTCw0q80Uyg',
      embedUrl: 'https://www.youtube.com/embed/' + req.params.videoId,
      type: 'video'
    }   
  ]
  });
 });
-server.get('/api/videos/:id', function (req, res) {
+server.get('/api/video/:id', function (req, res) {
  res.json({
      id: 'DP0wDz-akSw',
      name: 'Aquafulness',
+     image_url: 'https://i.ytimg.com/vi/DP0wDz-akSw/default.jpg?sqp=CJit878F&rs=AOn4CLA_q3_51YT9tbJ_VcYWTCw0q80Uyg',
      embedUrl: 'https://www.youtube.com/embed/' + req.params.id,
      type: 'video'
    });
@@ -38,6 +40,7 @@ server.get('/api/videos', function (req, res) {
   objects: [
    {
      name: 'Aquafulness',
+     image_url: 'https://i.ytimg.com/vi/DP0wDz-akSw/default.jpg?sqp=CJit878F&rs=AOn4CLA_q3_51YT9tbJ_VcYWTCw0q80Uyg',
      embedUrl: 'https://www.youtube.com/embed/DP0wDz-akSw',
      id: 'DP0wDz-akSw',
      url: '/videos/DP0wDz-akSw',
@@ -52,6 +55,7 @@ server.get('/api/categories/:categoryId/featured', function (req, res) {
    {
      imageUrl: '',
      name: 'Aquafulness',
+     image_url: 'https://i.ytimg.com/vi/DP0wDz-akSw/default.jpg?sqp=CJit878F&rs=AOn4CLA_q3_51YT9tbJ_VcYWTCw0q80Uyg',
      description: 'Aquafulness',
      embedUrl: 'https://www.youtube.com/embed/DP0wDz-akSw',
      id: 'DP0wDz-akSw',
@@ -66,9 +70,10 @@ server.get('/api/featured', function (req, res) {
    {
      name: 'Aquafulness',
      description: 'Aquafulness',
+     image_url: 'https://i.ytimg.com/vi/DP0wDz-akSw/default.jpg?sqp=CJit878F&rs=AOn4CLA_q3_51YT9tbJ_VcYWTCw0q80Uyg',
      embedUrl: 'https://www.youtube.com/embed/DP0wDz-akSw',
      id: 'DP0wDz-akSw',
-     url: '/videos/DP0wDz-akSw',
+     url: '/video/DP0wDz-akSw',
      type: 'video'
    }   
  ]
@@ -80,6 +85,7 @@ server.get('/api/recent/videos', function (req, res) {
   objects: [
    {
      name: 'Aquafulness',
+     image_url: 'https://i.ytimg.com/vi/DP0wDz-akSw/default.jpg?sqp=CJit878F&rs=AOn4CLA_q3_51YT9tbJ_VcYWTCw0q80Uyg',
      embedUrl: 'DP0wDz-akSw',
      type: 'video'
    }   

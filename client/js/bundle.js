@@ -39134,7 +39134,8 @@ var Card = exports.Card = function (_React$Component) {
             }, React.DOM.div({
                 className: 'card-header',
                 style: {
-                    backgroundImage: 'url("' + this.props.item.imageUrl + '")'
+                    backgroundImage: 'url("' + this.props.item.image_url + '")',
+                    backgroundSize: 'cover'
                 }
             }), React.DOM.div({
                 className: 'card-block'
@@ -39187,23 +39188,17 @@ var Flow = exports.Flow = function (_React$Component) {
         key: 'render',
         value: function render() {
 
-            return React.DOM.div({
-                className: 'row section'
-            }, React.DOM.div({
-                className: 'col-md-12'
-            }), React.DOM.div({
+            return React.DOM.section({
                 className: 'row'
             }, React.DOM.div({
                 className: 'col-md-12'
-            }, this.props.title)), React.DOM.div({
-                className: 'row'
-            }, this.props.objects.slice(0, 5).map(function (item) {
+            }, this.props.title), this.props.objects.slice(0, 5).map(function (item) {
                 return React.DOM.div({
                     className: 'col-md-3'
                 }, React.createElement(Card, {
                     item: item
                 }));
-            })));
+            }));
         }
     }]);
 

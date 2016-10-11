@@ -10,44 +10,30 @@ export class Flow extends React.Component {
     }
     render() {
         
-        return React.DOM.div(
+        return React.DOM.section(
             {
-                className: 'row section'
+                className: 'row'
             },
             React.DOM.div(
                 {
                     className: 'col-md-12'
-                }
-            ),
-            React.DOM.div(
-                {
-                    className: 'row'
                 },
-                React.DOM.div(
+                this.props.title
+            ),
+            this.props.objects.slice(0, 5).map((item) => {
+                return React.DOM.div(
                     {
-                        className: 'col-md-12'
+                        className: 'col-md-3'
                     },
-                    this.props.title
-                )
-            ),
-            React.DOM.div(
-                {
-                    className: 'row'
-                },
-                this.props.objects.slice(0, 5).map((item) => {
-                    return React.DOM.div(
+                    React.createElement(
+                        Card,
                         {
-                            className: 'col-md-3'
-                        },
-                        React.createElement(
-                            Card,
-                            {
-                                item: item
-                            }
-                        )
+                            item: item
+                        }
                     )
-                })
-            )
+                )
+            })
+            
         )
     }
     

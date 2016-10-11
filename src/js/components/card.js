@@ -15,7 +15,8 @@ export class Card extends React.Component {
                 {
                     className: 'card-header',
                     style: {
-                        backgroundImage: 'url("' + this.props.item.imageUrl + '")'
+                        backgroundImage: 'url("' + this.props.item.image_url + '")',
+                        backgroundSize: 'cover'
                     }
                 }
             ),
