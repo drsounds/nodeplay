@@ -5,48 +5,48 @@
 //
 var http = require('http');
 var path = require('path');
-
+var request = require('request');
 var async = require('async');
 var express = require('express');
+var YouTube = require('./youtube');
+
+var youTube = new YouTube('AIzaSyBzAUql-3lvz8ueO0drxBjXWMnr68zEVb0');
 
 var server = express();
 server.use('/', express.static(__dirname + '/client'));
 var fs = require('fs');
 
+var channelId = 'UC5tN7fKkW8J4rrCfxt9pWMQ';
+
 server.get('/api/categories/:categoryId/videos', function (req, res) {
- res.json({
-  objects: [
-   {
-     id: 'DP0wDz-akSw',
-     name: 'Aquafulness',
-     image_url: 'https://i.ytimg.com/vi/DP0wDz-akSw/default.jpg?sqp=CJit878F&rs=AOn4CLA_q3_51YT9tbJ_VcYWTCw0q80Uyg',
-     embedUrl: 'https://www.youtube.com/embed/' + req.params.videoId,
-     type: 'video'
-   }   
- ]
+ youTube.getVideosOnPlaylist(req.params.categoryId, function(error, result) {
+  if (error) {
+   console.log(error);
+    console.log(error);
+  }
+  else {
+    res.json(result);
+  }
+});
+});
+server.get('/api/videos/:id', function (req, res) {
+ youTube.getVideoById(req.params.id, function (err, result) {
+  if (err) {
+   console.log(err);
+   res.json({error: true});
+   return;
+  }
+  res.json(result);
  });
 });
-server.get('/api/video/:id', function (req, res) {
- res.json({
-     id: 'DP0wDz-akSw',
-     name: 'Aquafulness',
-     image_url: 'https://i.ytimg.com/vi/DP0wDz-akSw/default.jpg?sqp=CJit878F&rs=AOn4CLA_q3_51YT9tbJ_VcYWTCw0q80Uyg',
-     embedUrl: 'https://www.youtube.com/embed/' + req.params.id,
-     type: 'video'
-   });
-});
 server.get('/api/videos', function (req, res) {
- res.json({
-  objects: [
-   {
-     name: 'Aquafulness',
-     image_url: 'https://i.ytimg.com/vi/DP0wDz-akSw/default.jpg?sqp=CJit878F&rs=AOn4CLA_q3_51YT9tbJ_VcYWTCw0q80Uyg',
-     embedUrl: 'https://www.youtube.com/embed/DP0wDz-akSw',
-     id: 'DP0wDz-akSw',
-     url: '/videos/DP0wDz-akSw',
-     type: 'video'
-   }   
- ]
+ youTube.getVideosForChannel(channelId, function (err, result) {
+  if (err) {
+   console.log(err);
+   res.json({error: true});
+   return;
+  }
+  res.json(result);
  });
 });
 server.get('/api/categories/:categoryId/featured', function (req, res) {
@@ -81,26 +81,25 @@ server.get('/api/featured', function (req, res) {
 });
 
 server.get('/api/recent/videos', function (req, res) {
- res.json({
-  objects: [
-   {
-     name: 'Aquafulness',
-     image_url: 'https://i.ytimg.com/vi/DP0wDz-akSw/default.jpg?sqp=CJit878F&rs=AOn4CLA_q3_51YT9tbJ_VcYWTCw0q80Uyg',
-     embedUrl: 'DP0wDz-akSw',
-     type: 'video'
-   }   
- ]
- });
+ youTube.getVideosForChannel(channelId,function (err, result) {
+  if (err) {
+   console.log(err);
+   res.json();
+   return;
+  }
+  res.json(result);
+ })
 });
 server.get('/api/categories', function (req, res) {
- res.json({
-  objects: [
-   {
-     id: 'uploads',
-     name: 'Uppladdningar'
-   }
-    ]
- });
+ youTube.getPlaylistsForChannel(channelId, function (err, result) {
+  if (err) {
+   res.json(err);
+  return;
+   
+  }
+  res.json(result);
+  
+ })
 });
 server.get('/*', function (req, res) {
 
@@ -109,5 +108,5 @@ server.get('/*', function (req, res) {
     res.end();
 });
 server.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0", function(){
-  
+  console.log("A");
 });
