@@ -61,12 +61,23 @@ export class HomeView extends React.Component {
                     }
                 )
             ),
-            React.createElement(
-                Flow,
+            React.DOM.div(
                 {
-                    title: 'Senaste programmen',
-                    objects: this.state.recentMovies
-                }
+                    className: 'row'
+                },
+                React.DOM.div(
+                    {
+                        className: 'col-md-12'
+                    },
+                    React.createElement(
+                        Flow,
+                        {
+                            title: 'Senaste programmen',
+                            objects: this.state.recentMovies
+                        }
+                    )
+                
+                )
             )
         )
     }

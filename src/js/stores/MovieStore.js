@@ -9,7 +9,8 @@ var request = require('browser-request');
 let _data = {
   latest: [],
   categories: {},
-  movies: {}
+  movies: {},
+  movie: null
 };
 let CHANGE_EVENT = 'CHANGE_EVENT';
 
@@ -40,7 +41,6 @@ export let MovieStore = assign(EventEmitter.prototype, {
 // Register callback to handle all updates
 AppDispatcher.register(function (action) {
   var text;
-
   switch(action.actionType) {
     
     case MovieConstants.GET_MOVIE_BY_ID:
@@ -48,9 +48,12 @@ AppDispatcher.register(function (action) {
           if (err) {
               _data.error = true;
               MovieStore.emitChange();
+              return;
           }
+          
           var json = JSON.parse(res.body);
-          _data.movies[action.id] = json.objects;
+          _data.movies[action.id] = json;
+          _data.movie = json;
           MovieStore.emitChange();
         });
         break;

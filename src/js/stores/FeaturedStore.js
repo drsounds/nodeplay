@@ -45,12 +45,12 @@ AppDispatcher.register(function (action) {
   switch(action.actionType) {
     case FeaturedConstants.GET_FEATURED_BY_CATEGORY:
         request(`/api/categories/${action.id}/featured`, (err, res) => {
-          if (err) {
-              _data.error = true;
-              this.emitChange();
-          }
-          var json = JSON.parse(res.body);
-          _data.categories[action.id] = json;
+            if (err) {
+                _data.error = true;
+                this.emitChange();
+            }
+            var json = JSON.parse(res.body);
+            _data.categories[action.id] = json;
             FeaturedStore.emitChange();
         });
         break;
@@ -59,13 +59,13 @@ AppDispatcher.register(function (action) {
     
         request(`/api/featured`, (err, res) => {
             console.log(err, res);
-          if (err) {
-              _data.error = true;
-              this.emitChange();
-          }
-          var json = JSON.parse(res.body);
-          _data.objects = json.objects;
-          console.log(_data);
+            if (err) {
+                _data.error = true;
+                this.emitChange();
+            }
+            var json = JSON.parse(res.body);
+            _data.objects = json.objects;
+            console.log(_data);
             FeaturedStore.emitChange();
         });
         break;

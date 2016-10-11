@@ -4700,7 +4700,25 @@ a.text-danger:focus, a.text-danger:hover {
 
 body {
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,727272+100 */
-  background-image: url("../images/bg.png"); }
+  background-image: url("../images/bg2.png");
+  background-size: cover; }
 
-.section {
+.divider {
   border-top: 1pt solid #444; }
+
+.fade {
+  background-color: rgba(0, 0, 0, 0.5); }
+
+.navbar {
+  margin-top: 30pt;
+  margin-bottom: 30pt; }
+
+.section-block {
+  padding-top: 15pt;
+  padding-bottom: 15pt; }
+
+.section-alternative {
+  background-color: rgba(0, 0, 0, 0.5); }
+
+.card {
+  border: none; }

@@ -49,7 +49,14 @@ export class AppView extends React.Component {
                                 className: 'navbar-brand',
                                 to: '/'
                             },
-                            'En annan frekvens'
+                            React.DOM.img(
+                                {
+                                    style: {
+                                        display: 'inline-block'
+                                    },
+                                    src: '/images/playlogo.png'
+                                }  
+                            )
                         ),
                         React.DOM.ul(
                             {
