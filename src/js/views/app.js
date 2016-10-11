@@ -29,6 +29,20 @@ export class AppView extends React.Component {
                         {
                             className: 'navbar navbar-dark'
                         },
+                        React.DOM.form(
+                            {
+                                className: 'form-inline pull-xs-right',
+                                onSubmit: this._onSearch
+                            },
+                            React.DOM.input(
+                                {
+                                    className: 'form-control',
+                                    type: 'search',
+                                    placeholder: 'Sök',
+                                    ref: 'search'
+                                }    
+                            )
+                        ),
                         React.createElement(
                             Link,
                             {
@@ -42,33 +56,42 @@ export class AppView extends React.Component {
                                 className: 'nav navbar-nav'
                             },
                             React.DOM.li(
-                                null,
+                                {
+                                    className: 'nav-item'
+                                },
                                 React.createElement(
                                     Link,
                                     {
                                         to: '/',
+                                        className: 'nav-link'
                                         
                                     },
                                     'Hem'
                                 )
                             ),
                             React.DOM.li(
-                                null,
+                                {
+                                    className: 'nav-item'
+                                },
                                 React.createElement(
                                     Link,
                                     {
                                         to: '/categories',
+                                        className: 'nav-link'
                                         
                                     },
                                     'Kategorier'
                                 )
                             ),
                             React.DOM.li(
-                                null,
+                                {
+                                    className: 'nav-item'
+                                },
                                 React.createElement(
                                     Link,
                                     {
                                         to: '/about',
+                                        className: 'nav-link'
                                         
                                     },
                                     'Om'

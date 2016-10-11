@@ -1,5 +1,5 @@
 const AppDispatcher = require('../dispatcher/AppDispatcher');
-const FeaturedConstants = require('../constants/FeaturedConstants');
+const {FeaturedConstants} = require('../constants/FeaturedConstants');
 
 
 export let FeaturedActions = {
@@ -10,6 +10,7 @@ export let FeaturedActions = {
         });
     },
     loadFeatured() {
+        console.log("Load all featured");
         AppDispatcher.dispatch({
             actionType: FeaturedConstants.GET_ALL_FEATURED
         });

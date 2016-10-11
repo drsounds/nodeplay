@@ -1,22 +1,23 @@
 const AppDispatcher = require('../dispatcher/AppDispatcher');
-const MovieConstants = require('../actions/MovieActions');
+const {MovieConstants} = require('../constants/MovieConstants');
 
 
 export let MovieActions = {
-    loadCategories() {
-        AppDispatcher.dispatch({
-            actionType: MovieActions.GET_ALL_CATEGORIES
-        });
-    },
+
     loadMovieById(id){
         AppDispatcher.dispatch({
-            actionType: MovieActions.GET_MOVIE_BY_ID,
+            actionType: MovieConstants.GET_MOVIE_BY_ID,
             categoryId: id
+        });
+    },
+    loadRecent() {
+        AppDispatcher.dispatch({
+            actionType: MovieConstants.GET_RECENT_MOVIES
         });
     },
     loadMoviesByCategory(id){
         AppDispatcher.dispatch({
-            actionType: MovieActions.GET_MOVIES_BY_CATEGORY_ID,
+            actionType: MovieConstants.GET_MOVIES_BY_CATEGORY_ID,
             categoryId: id
         });
     }

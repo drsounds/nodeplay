@@ -27494,15 +27494,17 @@ var CategoryActions = exports.CategoryActions = {
     }
 };
 
-},{"../actions/CategoryActions":243,"../dispatcher/AppDispatcher":248}],244:[function(require,module,exports){
+},{"../actions/CategoryActions":243,"../dispatcher/AppDispatcher":252}],244:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
 var AppDispatcher = require('../dispatcher/AppDispatcher');
-var FeaturedConstants = require('../constants/FeaturedConstants');
 
+var _require = require('../constants/FeaturedConstants');
+
+var FeaturedConstants = _require.FeaturedConstants;
 var FeaturedActions = exports.FeaturedActions = {
     loadFeaturedByCategory: function loadFeaturedByCategory(id) {
         AppDispatcher.dispatch({
@@ -27511,13 +27513,45 @@ var FeaturedActions = exports.FeaturedActions = {
         });
     },
     loadFeatured: function loadFeatured() {
+        console.log("Load all featured");
         AppDispatcher.dispatch({
             actionType: FeaturedConstants.GET_ALL_FEATURED
         });
     }
 };
 
-},{"../constants/FeaturedConstants":247,"../dispatcher/AppDispatcher":248}],245:[function(require,module,exports){
+},{"../constants/FeaturedConstants":250,"../dispatcher/AppDispatcher":252}],245:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var AppDispatcher = require('../dispatcher/AppDispatcher');
+
+var _require = require('../constants/MovieConstants');
+
+var MovieConstants = _require.MovieConstants;
+var MovieActions = exports.MovieActions = {
+    loadMovieById: function loadMovieById(id) {
+        AppDispatcher.dispatch({
+            actionType: MovieConstants.GET_MOVIE_BY_ID,
+            categoryId: id
+        });
+    },
+    loadRecent: function loadRecent() {
+        AppDispatcher.dispatch({
+            actionType: MovieConstants.GET_RECENT_MOVIES
+        });
+    },
+    loadMoviesByCategory: function loadMoviesByCategory(id) {
+        AppDispatcher.dispatch({
+            actionType: MovieConstants.GET_MOVIES_BY_CATEGORY_ID,
+            categoryId: id
+        });
+    }
+};
+
+},{"../constants/MovieConstants":251,"../dispatcher/AppDispatcher":252}],246:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -27538,7 +27572,60 @@ var _require = require('react-router');
 
 var Link = _require.Link;
 
-var Card = function (_React$Component) {
+var Banner = function (_React$Component) {
+    _inherits(Banner, _React$Component);
+
+    function Banner() {
+        _classCallCheck(this, Banner);
+
+        return _possibleConstructorReturn(this, (Banner.__proto__ || Object.getPrototypeOf(Banner)).call(this));
+    }
+
+    _createClass(Banner, [{
+        key: 'render',
+        value: function render() {
+            return React.DOM.div({
+                className: 'banner',
+                style: {
+                    backgroundImage: 'url("' + this.props.item.imageUrl + '")'
+                }
+            }, React.DOM.div({
+                className: 'banner-block'
+            }, React.DOM.div({
+                className: 'banner-title'
+            }, React.DOM.h3(null, React.createElement(Link, {
+                to: this.props.item.url
+            }, this.props.item.name)))));
+        }
+    }]);
+
+    return Banner;
+}(React.Component);
+
+exports.default = Banner;
+
+},{"react":242,"react-router":40}],247:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var React = require('react');
+
+var _require = require('react-router');
+
+var Link = _require.Link;
+
+var Card = exports.Card = function (_React$Component) {
     _inherits(Card, _React$Component);
 
     function Card() {
@@ -27553,21 +27640,85 @@ var Card = function (_React$Component) {
             return React.DOM.div({
                 className: 'card'
             }, React.DOM.div({
+                className: 'card-header',
+                style: {
+                    backgroundImage: 'url("' + this.props.item.imageUrl + '")'
+                }
+            }), React.DOM.div({
                 className: 'card-block'
-            }), React.DOM.h3({
+            }), React.DOM.span({
                 className: 'card-title'
             }, React.createElement(Link, {
                 to: this.props.item.url
-            }, this.props.item.name)));
+            }, this.props.item.name, React.DOM.p(null, this.props.item.description))));
         }
     }]);
 
     return Card;
 }(React.Component);
 
-exports.default = Card;
+},{"react":242,"react-router":40}],248:[function(require,module,exports){
+'use strict';
 
-},{"react":242,"react-router":40}],246:[function(require,module,exports){
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var React = require('react');
+
+var _require = require('react-router');
+
+var Link = _require.Link;
+
+var _require2 = require('./card');
+
+var Card = _require2.Card;
+
+var Flow = exports.Flow = function (_React$Component) {
+    _inherits(Flow, _React$Component);
+
+    function Flow() {
+        _classCallCheck(this, Flow);
+
+        return _possibleConstructorReturn(this, (Flow.__proto__ || Object.getPrototypeOf(Flow)).call(this));
+    }
+
+    _createClass(Flow, [{
+        key: 'render',
+        value: function render() {
+
+            return React.DOM.div({
+                className: 'row section'
+            }, React.DOM.div({
+                className: 'col-md-12'
+            }), React.DOM.div({
+                className: 'row'
+            }, React.DOM.div({
+                className: 'col-md-12'
+            }, this.props.title)), React.DOM.div({
+                className: 'row'
+            }, this.props.objects.slice(0, 5).map(function (item) {
+                return React.DOM.div({
+                    className: 'col-md-3'
+                }, React.createElement(Card, {
+                    item: item
+                }));
+            })));
+        }
+    }]);
+
+    return Flow;
+}(React.Component);
+
+},{"./card":247,"react":242,"react-router":40}],249:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -27581,7 +27732,7 @@ var CategoryConstants = exports.CategoryConstants = keymirror({
     'GET_CATEGORY_BY_ID': null
 });
 
-},{"../dispatcher/AppDispatcher":248,"keymirror":8}],247:[function(require,module,exports){
+},{"../dispatcher/AppDispatcher":252,"keymirror":8}],250:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -27595,14 +27746,29 @@ var FeaturedConstants = exports.FeaturedConstants = keymirror({
     'GET_FEATURED_BY_CATEGORY': null
 });
 
-},{"../dispatcher/AppDispatcher":248,"keymirror":8}],248:[function(require,module,exports){
+},{"../dispatcher/AppDispatcher":252,"keymirror":8}],251:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var keymirror = require('keymirror');
+var AppDispatcher = require('../dispatcher/AppDispatcher');
+
+var MovieConstants = exports.MovieConstants = keymirror({
+    'GET_RECENT_MOVIES': null,
+    'GET_MOVIE_BY_ID': null,
+    'GET_MOVIES_BY_CATEGORY_ID': null
+});
+
+},{"../dispatcher/AppDispatcher":252,"keymirror":8}],252:[function(require,module,exports){
 'use strict';
 
 var Dispatcher = require('flux').Dispatcher;
 
 module.exports = new Dispatcher();
 
-},{"flux":4}],249:[function(require,module,exports){
+},{"flux":4}],253:[function(require,module,exports){
 'use strict';
 
 var _reactRouter = require('react-router');
@@ -27631,7 +27797,7 @@ var render = _require5.render;
 
 
 render(React.createElement(_reactRouter.Router, {
-    history: _reactRouter.hashHistory
+    history: _reactRouter.browserHistory
 }, React.createElement(_reactRouter.Route, {
     path: '/',
     component: AppView
@@ -27645,9 +27811,12 @@ render(React.createElement(_reactRouter.Router, {
     component: AboutView
 }))), document.querySelector('#app'));
 
-},{"./views/about":252,"./views/app":253,"./views/categories":254,"./views/home":255,"react":242,"react-dom":10,"react-router":40}],250:[function(require,module,exports){
+},{"./views/about":257,"./views/app":258,"./views/categories":259,"./views/home":260,"react":242,"react-dom":10,"react-router":40}],254:[function(require,module,exports){
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 
 var _require = require('../constants/CategoryConstants');
@@ -27662,10 +27831,13 @@ var assign = require('object-assign');
 var EventEmitter = require('events');
 var request = require('browser-request');
 
-var _data = {};
+var _data = {
+    categories: {},
+    objects: []
+};
 var CHANGE_EVENT = 'CHANGE_EVENT';
 
-var CategoryStore = assign(EventEmitter.prototype, {
+var CategoryStore = exports.CategoryStore = assign(EventEmitter.prototype, {
     getData: function getData() {
         return _data;
     },
@@ -27692,35 +27864,39 @@ var CategoryStore = assign(EventEmitter.prototype, {
 
 // Register callback to handle all updates
 AppDispatcher.register(function (action) {
+    var _this = this;
+
     var text;
 
     switch (action.actionType) {
-        case CategoryConstants.GET_MOVIE_BY_ID:
-            request('/api/videos/' + action.id, function (err, res) {
+        case CategoryConstants.GET_CATEGORY_BY_ID:
+            request('/api/categories/' + action.id, function (err, res) {
                 if (err) {
                     _data.error = true;
-                    undefined.emitChange();
+                    _this.emitChange();
                 }
                 var json = JSON.parse(res.body);
                 _data.objects = json.objects;
+                CategoryStore.emitChange();
+                console.log("Category", _data);
             });
-            undefined.emitChange();
             break;
-        case CategoryConstants.GET_MOVIES_BY_CATEGORY:
-            request('/api/videos/' + action.id, function (err, res) {
+        case CategoryConstants.GET_CATEGORY_BY_ID:
+            request('/api/categories/' + action.id, function (err, res) {
                 if (err) {
                     _data.error = true;
-                    undefined.emitChange();
+                    _this.emitChange();
                 }
                 var json = JSON.parse(res.body);
-                _data = assign(_data, json);
+                _data.categories[action.id] = json;
+                console.log("Categories", _data);
+                CategoryStore.emitChange();
             });
-            undefined.emitChange();
             break;
     }
 });
 
-},{"../actions/CategoryActions":243,"../constants/CategoryConstants":246,"../dispatcher/AppDispatcher":248,"browser-request":1,"events":2,"object-assign":9}],251:[function(require,module,exports){
+},{"../actions/CategoryActions":243,"../constants/CategoryConstants":249,"../dispatcher/AppDispatcher":252,"browser-request":1,"events":2,"object-assign":9}],255:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -27741,7 +27917,11 @@ var EventEmitter = require('events');
 
 var request = require('browser-request');
 
-var _data = {};
+var _data = {
+    categories: {},
+    objects: [],
+    error: false
+};
 var CHANGE_EVENT = 'CHANGE_EVENT';
 
 var FeaturedStore = exports.FeaturedStore = assign(EventEmitter.prototype, {
@@ -27771,36 +27951,137 @@ var FeaturedStore = exports.FeaturedStore = assign(EventEmitter.prototype, {
 
 // Register callback to handle all updates
 AppDispatcher.register(function (action) {
+    var _this = this;
+
     var text;
 
+    console.log(action.actionType);
     switch (action.actionType) {
-
         case FeaturedConstants.GET_FEATURED_BY_CATEGORY:
             request('/api/categories/' + action.id + '/featured', function (err, res) {
                 if (err) {
                     _data.error = true;
-                    undefined.emitChange();
+                    _this.emitChange();
                 }
                 var json = JSON.parse(res.body);
-                _data.movies = json.objects;
+                _data.categories[action.id] = json;
+                FeaturedStore.emitChange();
             });
-            undefined.emitChange();
             break;
         case FeaturedConstants.GET_ALL_FEATURED:
+            console.log("Get all featured");
+
             request('/api/featured', function (err, res) {
+                console.log(err, res);
                 if (err) {
                     _data.error = true;
-                    undefined.emitChange();
+                    _this.emitChange();
                 }
                 var json = JSON.parse(res.body);
-                _data = assign(_data, json.objects);
+                _data.objects = json.objects;
+                console.log(_data);
+                FeaturedStore.emitChange();
             });
-            undefined.emitChange();
             break;
     }
 });
 
-},{"../actions/FeaturedActions":244,"../constants/FeaturedConstants":247,"../dispatcher/AppDispatcher":248,"browser-request":1,"events":2,"object-assign":9}],252:[function(require,module,exports){
+},{"../actions/FeaturedActions":244,"../constants/FeaturedConstants":250,"../dispatcher/AppDispatcher":252,"browser-request":1,"events":2,"object-assign":9}],256:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var AppDispatcher = require('../dispatcher/AppDispatcher');
+
+var _require = require('../constants/MovieConstants');
+
+var MovieConstants = _require.MovieConstants;
+
+var _require2 = require('../actions/MovieActions');
+
+var MovieActions = _require2.MovieActions;
+
+var assign = require('object-assign');
+var EventEmitter = require('events');
+
+var request = require('browser-request');
+
+var _data = {
+    latest: [],
+    categories: {},
+    movies: {}
+};
+var CHANGE_EVENT = 'CHANGE_EVENT';
+
+var MovieStore = exports.MovieStore = assign(EventEmitter.prototype, {
+    getData: function getData() {
+        return _data;
+    },
+    emitChange: function emitChange() {
+        this.emit(CHANGE_EVENT);
+    },
+
+
+    /**
+    * @param {function} callback
+    */
+    addChangeListener: function addChangeListener(callback) {
+        this.on(CHANGE_EVENT, callback);
+    },
+
+
+    /**
+    * @param {function} callback
+    */
+    removeChangeListener: function removeChangeListener(callback) {
+        this.removeListener(CHANGE_EVENT, callback);
+    }
+});
+
+// Register callback to handle all updates
+AppDispatcher.register(function (action) {
+    var text;
+
+    switch (action.actionType) {
+
+        case MovieConstants.GET_MOVIE_BY_ID:
+            request('/api/videos/' + action.id, function (err, res) {
+                if (err) {
+                    _data.error = true;
+                    MovieStore.emitChange();
+                }
+                var json = JSON.parse(res.body);
+                _data.movies[action.id] = json.objects;
+                MovieStore.emitChange();
+            });
+            break;
+        case MovieConstants.GET_MOVIES_BY_CATEGORY:
+            request('/api/categories/' + action.id + '/videos', function (err, res) {
+                if (err) {
+                    _data.error = true;
+                    MovieStore.emitChange();
+                }
+                var json = JSON.parse(res.body);
+                _data.categories[action.id] = json;
+                MovieStore.emitChange();
+            });
+            break;
+        case MovieConstants.GET_RECENT_MOVIES:
+            request('/api/videos', function (err, res) {
+                if (err) {
+                    _data.error = true;
+                    MovieStore.emitChange();
+                }
+                var json = JSON.parse(res.body);
+                _data.objects = json.objects;
+                MovieStore.emitChange();
+            });
+            break;
+    }
+});
+
+},{"../actions/MovieActions":245,"../constants/MovieConstants":251,"../dispatcher/AppDispatcher":252,"browser-request":1,"events":2,"object-assign":9}],257:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -27841,7 +28122,7 @@ var AboutView = exports.AboutView = function (_React$Component) {
     return AboutView;
 }(React.Component);
 
-},{"i18n-react":7,"react":242,"react-router":40}],253:[function(require,module,exports){
+},{"i18n-react":7,"react":242,"react-router":40}],258:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -27895,19 +28176,36 @@ var AppView = exports.AppView = function (_React$Component) {
                 className: 'row'
             }, React.DOM.nav({
                 className: 'navbar navbar-dark'
-            }, React.createElement(_reactRouter.Link, {
+            }, React.DOM.form({
+                className: 'form-inline pull-xs-right',
+                onSubmit: this._onSearch
+            }, React.DOM.input({
+                className: 'form-control',
+                type: 'search',
+                placeholder: 'Sök',
+                ref: 'search'
+            })), React.createElement(_reactRouter.Link, {
                 className: 'navbar-brand',
                 to: '/'
             }, 'En annan frekvens'), React.DOM.ul({
                 className: 'nav navbar-nav'
-            }, React.DOM.li(null, React.createElement(_reactRouter.Link, {
-                to: '/'
+            }, React.DOM.li({
+                className: 'nav-item'
+            }, React.createElement(_reactRouter.Link, {
+                to: '/',
+                className: 'nav-link'
 
-            }, 'Hem')), React.DOM.li(null, React.createElement(_reactRouter.Link, {
-                to: '/categories'
+            }, 'Hem')), React.DOM.li({
+                className: 'nav-item'
+            }, React.createElement(_reactRouter.Link, {
+                to: '/categories',
+                className: 'nav-link'
 
-            }, 'Kategorier')), React.DOM.li(null, React.createElement(_reactRouter.Link, {
-                to: '/about'
+            }, 'Kategorier')), React.DOM.li({
+                className: 'nav-item'
+            }, React.createElement(_reactRouter.Link, {
+                to: '/about',
+                className: 'nav-link'
 
             }, 'Om')))))), this.props.children);
         }
@@ -27916,7 +28214,7 @@ var AppView = exports.AppView = function (_React$Component) {
     return AppView;
 }(React.Component);
 
-},{"../stores/CategoryStore":250,"i18n-react":7,"react":242,"react-router":40}],254:[function(require,module,exports){
+},{"../stores/CategoryStore":254,"i18n-react":7,"react":242,"react-router":40}],259:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -27990,7 +28288,7 @@ var CategoriesView = exports.CategoriesView = function (_React$Component) {
     return CategoriesView;
 }(React.Component);
 
-},{"../actions/CategoryActions":243,"../constants/CategoryConstants":246,"../stores/CategoryStore":250,"i18n-react":7,"react":242,"react-router":40}],255:[function(require,module,exports){
+},{"../actions/CategoryActions":243,"../constants/CategoryConstants":249,"../stores/CategoryStore":254,"i18n-react":7,"react":242,"react-router":40}],260:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -28016,6 +28314,18 @@ var _card = require('../components/card');
 
 var _card2 = _interopRequireDefault(_card);
 
+var _banner = require('../components/banner');
+
+var _banner2 = _interopRequireDefault(_banner);
+
+var _MovieStore = require('../stores/MovieStore');
+
+var _MovieActions = require('../actions/MovieActions');
+
+var _MovieConstants = require('../constants/MovieConstants');
+
+var _flow = require('../components/flow');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -28033,23 +28343,33 @@ var HomeView = exports.HomeView = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (HomeView.__proto__ || Object.getPrototypeOf(HomeView)).call(this));
 
         _this.state = {
-            featured: []
+            featured: [],
+            recentMovies: []
         };
 
         _this._onFeaturedChange = _this._onFeaturedChange.bind(_this);
+        _this._onMoviesChange = _this._onMoviesChange.bind(_this);
         return _this;
     }
 
     _createClass(HomeView, [{
+        key: '_onMoviesChange',
+        value: function _onMoviesChange() {
+            this.setState({ recentMovies: _MovieStore.MovieStore.getData().objects });
+        }
+    }, {
         key: '_onFeaturedChange',
-        value: function _onFeaturedChange(data) {
+        value: function _onFeaturedChange() {
+            var data = _FeaturedStore.FeaturedStore.getData();
             this.setState({ featured: data.objects });
         }
     }, {
         key: 'componentDidMount',
         value: function componentDidMount() {
             _FeaturedStore.FeaturedStore.addChangeListener(this._onFeaturedChange);
+            _MovieStore.MovieStore.addChangeListener(this._onMoviesChange);
             _FeaturedActions.FeaturedActions.loadFeatured();
+            _MovieActions.MovieActions.loadRecent();
         }
     }, {
         key: 'render',
@@ -28058,10 +28378,16 @@ var HomeView = exports.HomeView = function (_React$Component) {
                 className: 'container'
             }, _react2.default.DOM.div({
                 className: 'row'
-            }), this.state.featured.map(function (item) {
-                return _react2.default.createElement(_card2.default, {
-                    item: item
-                });
+            }, this.state.featured.map(function (item, i) {
+                return _react2.default.DOM.div({
+                    className: 'col-md-12'
+                }, _react2.default.createElement(_banner2.default, {
+                    item: item,
+                    key: 'featured-' + i
+                }));
+            })), _react2.default.createElement(_flow.Flow, {
+                title: 'Senaste programmen',
+                objects: this.state.recentMovies
             }));
         }
     }]);
@@ -28069,4 +28395,4 @@ var HomeView = exports.HomeView = function (_React$Component) {
     return HomeView;
 }(_react2.default.Component);
 
-},{"../actions/FeaturedActions":244,"../components/card":245,"../constants/FeaturedConstants":247,"../stores/FeaturedStore":251,"react":242,"react-router":40}]},{},[249]);
+},{"../actions/FeaturedActions":244,"../actions/MovieActions":245,"../components/banner":246,"../components/card":247,"../components/flow":248,"../constants/FeaturedConstants":250,"../constants/MovieConstants":251,"../stores/FeaturedStore":255,"../stores/MovieStore":256,"react":242,"react-router":40}]},{},[253]);

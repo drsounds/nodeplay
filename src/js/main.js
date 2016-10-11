@@ -4,8 +4,7 @@ const {HomeView} = require('./views/home');
 const {AboutView} = require('./views/about');
 const {CategoryListView} = require('./views/categories');
 
-
-import { Router, Route, IndexRoute, Link, hashHistory } from 'react-router'
+import { Router, Route, IndexRoute, Link, browserHistory, hashHistory } from 'react-router'
 
 const {render} = require('react-dom');
 
@@ -13,7 +12,7 @@ render(
     React.createElement(
         Router,
         {
-            history: hashHistory
+            history: browserHistory
         },
         React.createElement(
             Route,

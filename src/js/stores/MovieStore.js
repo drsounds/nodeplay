@@ -1,15 +1,19 @@
 const AppDispatcher = require('../dispatcher/AppDispatcher');
-const {MovieConstants} = require('../constants/CategoryConstants');
-const {MovieActions} = require('../actions/CategoryActions');
+const {MovieConstants} = require('../constants/MovieConstants');
+const {MovieActions} = require('../actions/MovieActions');
 const assign = require('object-assign');
 const EventEmitter = require('events');
 
 var request = require('browser-request');
 
-let _data = {};
+let _data = {
+  latest: [],
+  categories: {},
+  movies: {}
+};
 let CHANGE_EVENT = 'CHANGE_EVENT';
 
-let MovieStore = assign(EventEmitter.prototype, {
+export let MovieStore = assign(EventEmitter.prototype, {
     getData() {
         return _data;
     },
@@ -34,7 +38,7 @@ let MovieStore = assign(EventEmitter.prototype, {
 
 
 // Register callback to handle all updates
-AppDispatcher.register((action) => {
+AppDispatcher.register(function (action) {
   var text;
 
   switch(action.actionType) {
@@ -43,23 +47,34 @@ AppDispatcher.register((action) => {
         request(`/api/videos/${action.id}`, (err, res) => {
           if (err) {
               _data.error = true;
-              this.emitChange();
+              MovieStore.emitChange();
           }
           var json = JSON.parse(res.body);
-          _data.movies = json.objects;
+          _data.movies[action.id] = json.objects;
+          MovieStore.emitChange();
         });
-        this.emitChange();
         break;
     case MovieConstants.GET_MOVIES_BY_CATEGORY:
         request(`/api/categories/${action.id}/videos`, (err, res) => {
           if (err) {
               _data.error = true;
-              this.emitChange();
+              MovieStore.emitChange();
           }
           var json = JSON.parse(res.body);
-          _data = assign(_data, json.objects);
+          _data.categories[action.id] = json;
+            MovieStore.emitChange();
         });
-        this.emitChange();
+        break;
+    case MovieConstants.GET_RECENT_MOVIES:
+        request(`/api/videos`, (err, res) => {
+          if (err) {
+              _data.error = true;
+              MovieStore.emitChange();
+          }
+          var json = JSON.parse(res.body);
+          _data.objects = json.objects;
+            MovieStore.emitChange();
+        });
         break;
   }
 });

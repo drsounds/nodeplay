@@ -6,7 +6,11 @@ const EventEmitter = require('events');
 
 var request = require('browser-request');
 
-let _data = {};
+let _data = {
+    categories: {},
+    objects: [],
+    error: false
+};
 let CHANGE_EVENT = 'CHANGE_EVENT';
 
 export let FeaturedStore = assign(EventEmitter.prototype, {
@@ -34,11 +38,11 @@ export let FeaturedStore = assign(EventEmitter.prototype, {
 
 
 // Register callback to handle all updates
-AppDispatcher.register((action) => {
+AppDispatcher.register(function (action) {
   var text;
 
+    console.log(action.actionType);
   switch(action.actionType) {
-    
     case FeaturedConstants.GET_FEATURED_BY_CATEGORY:
         request(`/api/categories/${action.id}/featured`, (err, res) => {
           if (err) {
@@ -46,20 +50,24 @@ AppDispatcher.register((action) => {
               this.emitChange();
           }
           var json = JSON.parse(res.body);
-          _data.movies = json.objects;
+          _data.categories[action.id] = json;
+            FeaturedStore.emitChange();
         });
-        this.emitChange();
         break;
     case FeaturedConstants.GET_ALL_FEATURED:
+        console.log("Get all featured");
+    
         request(`/api/featured`, (err, res) => {
+            console.log(err, res);
           if (err) {
               _data.error = true;
               this.emitChange();
           }
           var json = JSON.parse(res.body);
-          _data = assign(_data, json.objects);
+          _data.objects = json.objects;
+          console.log(_data);
+            FeaturedStore.emitChange();
         });
-        this.emitChange();
         break;
   }
 });

@@ -5,10 +5,13 @@ const assign = require('object-assign');
 const EventEmitter = require('events');
 const request = require('browser-request');
 
-let _data = {};
+let _data = {
+    categories: {},
+    objects: []
+};
 let CHANGE_EVENT = 'CHANGE_EVENT';
 
-let CategoryStore = assign(EventEmitter.prototype, {
+export let CategoryStore = assign(EventEmitter.prototype, {
     getData() {
         return _data;
     },
@@ -33,31 +36,33 @@ let CategoryStore = assign(EventEmitter.prototype, {
 
 
 // Register callback to handle all updates
-AppDispatcher.register((action) => {
+AppDispatcher.register(function (action) {
   var text;
 
   switch(action.actionType) {
-      case CategoryConstants.GET_MOVIE_BY_ID:
-        request(`/api/videos/${action.id}`, (err, res) => {
+      case CategoryConstants.GET_CATEGORY_BY_ID:
+        request(`/api/categories/${action.id}`, (err, res) => {
           if (err) {
               _data.error = true;
               this.emitChange();
           }
           var json = JSON.parse(res.body);
           _data.objects = json.objects;
+            CategoryStore.emitChange(); 
+            console.log("Category", _data);
         });
-        this.emitChange();
         break;
-    case CategoryConstants.GET_MOVIES_BY_CATEGORY:
-        request(`/api/videos/${action.id}`, (err, res) => {
+    case CategoryConstants.GET_CATEGORY_BY_ID:
+        request(`/api/categories/${action.id}`, (err, res) => {
           if (err) {
               _data.error = true;
               this.emitChange();
           }
           var json = JSON.parse(res.body);
-          _data = assign(_data, json);
+          _data.categories[action.id] = json;
+            console.log("Categories", _data);
+        CategoryStore.emitChange();
         });
-        this.emitChange();
         break;
   }
 });

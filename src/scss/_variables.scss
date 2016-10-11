@@ -48,7 +48,7 @@ $gray-light:                #818a91 !default;
 $gray-lighter:              #eceeef !default;
 $gray-lightest:             #f7f7f9 !default;
 
-$brand-primary:             #0275d8 !default;
+$brand-primary:             #aaffff !default;
 $brand-success:             #5cb85c !default;
 $brand-info:                #5bc0de !default;
 $brand-warning:             #f0ad4e !default;
@@ -107,6 +107,12 @@ $border-width: 1px !default;
 $body-bg:    #333 !default;
 $body-color: #eee !default;
 
+
+// Banners
+//
+// Settings for the banner element
+$banner-bg:  #111;
+$banner-fg:  #fafafa;
 
 // Links
 //
@@ -582,10 +588,10 @@ $card-border-width:        1px !default;
 $card-border-radius:       $border-radius !default;
 $card-border-color:        rgba(0,0,0,.125) !default;
 $card-border-radius-inner: $card-border-radius !default;
-$card-cap-bg:              #f5f5f5 !default;
-$card-bg:                  #fff !default;
+$card-cap-bg:              #666 !default;
+$card-bg:                  #black !default;
 
-$card-link-hover-color:    #fff !default;
+$card-link-hover-color:    #white !default;
 
 $card-img-overlay-padding: 1.25rem !default;
 

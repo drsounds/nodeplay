@@ -2,7 +2,7 @@ const React = require('react');
 const {Link} = require('react-router');
 
 
-export default class Card extends React.Component {
+export class Card extends React.Component {
     constructor() {
         super();
     }
@@ -13,10 +13,18 @@ export default class Card extends React.Component {
             },
             React.DOM.div(
                 {
+                    className: 'card-header',
+                    style: {
+                        backgroundImage: 'url("' + this.props.item.imageUrl + '")'
+                    }
+                }
+            ),
+            React.DOM.div(
+                {
                     className: 'card-block'
                 }  
             ),
-            React.DOM.h3(
+            React.DOM.span(
                 {
                     className: 'card-title'
                 },
@@ -25,7 +33,11 @@ export default class Card extends React.Component {
                     {
                         to: this.props.item.url
                     },
-                    this.props.item.name
+                    this.props.item.name,
+                    React.DOM.p(
+                        null,
+                        this.props.item.description
+                    )
                 )
             )
         )

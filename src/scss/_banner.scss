@@ -1,0 +1,23 @@
+.banner {
+    display: block;
+    position: relative;
+    background-size: cover;
+    color: white;
+    background-color: $banner-bg;
+    min-height: 80pt;
+    width: 100%;
+}
+.banner-block {
+    padding: 10pt;
+}
+.banner-title {
+    bottom: 0px;
+    position: absolute;
+    
+}
+.banner-title a {
+    color: white;
+}
+.banner-subtitle {
+    color: white;
+}
