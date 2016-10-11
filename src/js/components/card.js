@@ -34,12 +34,13 @@ export class Card extends React.Component {
                     {
                         to: this.props.item.url
                     },
-                    this.props.item.name,
-                    React.DOM.p(
-                        null,
-                        this.props.item.description
-                    )
+                    this.props.item.name
+                ),
+                React.DOM.p(
+                    null,
+                    this.props.item.description
                 )
+                
             )
         )
     }

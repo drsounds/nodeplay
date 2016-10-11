@@ -39143,7 +39143,7 @@ var Card = exports.Card = function (_React$Component) {
                 className: 'card-title'
             }, React.createElement(Link, {
                 to: this.props.item.url
-            }, this.props.item.name, React.DOM.p(null, this.props.item.description))));
+            }, this.props.item.name), React.DOM.p(null, this.props.item.description)));
         }
     }]);
 

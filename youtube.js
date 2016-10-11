@@ -49,8 +49,10 @@ YouTube.prototype.request = function (method, url, params, cb) {
                     id: item.id ? item.id.videoId ? item.id.videoId : item.id : '',
                     description: item.snippet.description,
                     type: item.id? item.id.kind ? item.id.kind.split('#')[1] : item.kind.split('#')[1] : 'object',
-                    image_url: item.snippet.thumbnails.default.url
+                    image_url: item.snippet.thumbnails.default.url,
+                 
                 };
+                obj.url = '/' + obj.type + '/' + obj.id;
                 return obj;
             });
             cb(null, {
